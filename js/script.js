@@ -21,10 +21,6 @@ for(let i = 0; i < numberGenerated.length; i++){
     numberList.appendChild(listItem);
 }
 
-
-
-
-
 //*creazione countdown
 
 let timeLeft = 5000; // tempo iniziale
@@ -39,4 +35,23 @@ const countdown = setInterval(function() {
         utentForm.classList.remove("d-none");
     }
 }, 1000); // aggiorna ogni secondo
+
+
+
+// * form script
+const formButton = document.getElementById("form-button");
+
+formButton.addEventListener("click", function(event){
+    event.preventDefault();
+    
+    const utentNumbers = [];
+    document.querySelectorAll(".form-control").forEach(input => {
+        utentNumbers.push(input.value);
+    });
+    console.log(utentNumbers);
+
+});
+
+
+
 
