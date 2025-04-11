@@ -20,3 +20,18 @@ for(let i = 0; i < numberGenerated.length; i++){
     listItem.textContent = currentNumber; // imposta il testo dell'elemento
     numberList.appendChild(listItem);
 }
+
+
+// creazione countdown
+
+let timeLeft = 5000; // tempo iniziale
+
+const countdown = setInterval(function() {
+    timeLeft -= 1000;
+    countdownEl.textContent = (timeLeft / 1000);
+
+    if (timeLeft <= 0) {
+        clearInterval(countdown); // ferma il countdown quando arriva a 0
+        
+    }
+}, 1000); // aggiorna ogni secondo
