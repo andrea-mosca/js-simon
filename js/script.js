@@ -2,6 +2,8 @@ const countdownEl = document.getElementById("countdown");
 const numberList = document.getElementById("numbers-list");
 const utentForm = document.getElementById("answers-form");
 
+const formButton = document.getElementById("form-button");
+
 //* funzione che genera un numero casuale 
 const generateRandomNumber = (min, max) =>{
     return Math.floor(Math.random()*(max-min+1)+min);
@@ -39,18 +41,22 @@ const countdown = setInterval(function() {
 
 
 // * form script
-const formButton = document.getElementById("form-button");
+
 
 formButton.addEventListener("click", function(event){
     event.preventDefault();
-    
+    // crea un array di numeri con i numeri inseriti dal form
     const utentNumbers = [];
     document.querySelectorAll(".form-control").forEach(input => {
-        utentNumbers.push(input.value);
+    utentNumbers.push(Number(input.value)); 
     });
-    console.log(utentNumbers);
 
+    // se un numero inserito è presente nei numeri generati,stampalo e aggiungi 1
+    const foundedNumbers = utentNumbers.filter(num => numberGenerated.includes(num));
+    console.log(foundedNumbers);
+    console.log("hai trovato ", foundedNumbers.length, "numeri: ", "(",foundedNumbers.toString(), ")");
 });
+
 
 
 
