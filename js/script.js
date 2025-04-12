@@ -3,6 +3,7 @@ const numberList = document.getElementById("numbers-list");
 const utentForm = document.getElementById("answers-form");
 
 const formButton = document.getElementById("form-button");
+const messageEl = document.getElementById("message");
 
 //* funzione che genera un numero casuale 
 const generateRandomNumber = (min, max) =>{
@@ -25,7 +26,7 @@ for(let i = 0; i < numberGenerated.length; i++){
 
 //*creazione countdown
 
-let timeLeft = 5000; // tempo iniziale
+let timeLeft = 30000; // tempo iniziale
 
 const countdown = setInterval(function() {
     timeLeft -= 1000;
@@ -53,8 +54,14 @@ formButton.addEventListener("click", function(event){
 
     // se un numero inserito è presente nei numeri generati,stampalo e aggiungi 1
     const foundedNumbers = utentNumbers.filter(num => numberGenerated.includes(num));
-    console.log(foundedNumbers);
-    console.log("hai trovato ", foundedNumbers.length, "numeri: ", "(",foundedNumbers.toString(), ")");
+    
+    // stampa il risultato sulla pagina
+    if(foundedNumbers.length === 0){
+        messageEl.innerText = "non hai indovinato nemmeno un numero";
+    }else{
+        messageEl.innerText = "hai trovato " + foundedNumbers.length + " numeri: " + "(" + foundedNumbers.toString() + ")";
+
+    }
 });
 
 
