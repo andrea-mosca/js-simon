@@ -1,19 +1,22 @@
 const countdownEl = document.getElementById("countdown");
 const numberList = document.getElementById("numbers-list");
 const utentForm = document.getElementById("answers-form");
-
+const instructionsEL = document.getElementById("instructions");
 const formButton = document.getElementById("form-button");
 const messageEl = document.getElementById("message");
 
-//* funzione che genera un numero casuale 
+//  funzione che genera un numero casuale 
 const generateRandomNumber = (min, max) =>{
     return Math.floor(Math.random()*(max-min+1)+min);
 }
 // *creazione dell'array che contenga i numeri generati 
 const numberGenerated = [];
-// *ciclo che inserisca 5 numeri nell'array dei numeri da memorizzare 
-for(let i = 0; i < 5; i++){
-    numberGenerated.push(generateRandomNumber(1, 50));
+// *ciclo che inserisca 5 numeri nell'array dei numeri da memorizzare(ma controlli che tutti i numeri inseriti siano diversi) 
+while(numberGenerated.length < 5){
+    const singleGeneratedNumber = generateRandomNumber(1, 50);
+    if(!numberGenerated.includes(singleGeneratedNumber)){ // se la lista non include il numero generato
+        numberGenerated.push(singleGeneratedNumber); // allora inseriscilo nella lista
+    }
 }
 
 //* inserimento dei numeri generati nell'html
@@ -26,16 +29,18 @@ for(let i = 0; i < numberGenerated.length; i++){
 
 //*creazione countdown
 
-let timeLeft = 30000; // tempo iniziale
+let timeLeft = 3000; // tempo iniziale
 
 const countdown = setInterval(function() {
     timeLeft -= 1000;
     countdownEl.textContent = (timeLeft / 1000);
 
     if (timeLeft <= 0) {
+        timeLeft = 0; //ci assicuriaml che il valore si fermi a 0
         clearInterval(countdown); // ferma il countdown quando arriva a 0 
         numberList.classList.add("d-none");
         utentForm.classList.remove("d-none");
+        instructionsEL.innerText = "inserisci i numeri visualizzati";
     }
 }, 1000); // aggiorna ogni secondo
 
@@ -59,12 +64,11 @@ formButton.addEventListener("click", function(event){
     if(foundedNumbers.length === 0){
         messageEl.innerText = "non hai indovinato nemmeno un numero";
     }else{
-        messageEl.innerText = "hai trovato " + foundedNumbers.length + " numeri: " + "(" + foundedNumbers.toString() + ")";
-
+        messageEl.classList.remove("text-danger");
+        messageEl.innerText = "hai indovinato " + foundedNumbers.length + " numeri: " + "(" + foundedNumbers.toString() + ")";
+        
     }
 });
-
-
 
 
 
